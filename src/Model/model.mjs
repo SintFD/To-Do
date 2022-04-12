@@ -5,10 +5,13 @@ export default class Model {
 
   addInput(newTask) {
     this.arr = [...this.arr, newTask];
-    console.log(this.arr);
   }
 
-  deletInput() {}
+  deletTask(selectIndex) {
+    this.arr = this.arr.filter((el, index) => index !== selectIndex)
+  }
 
-  sortInputs() {}
+  sortTasks(el) {
+    this.arr = this.arr.sort((a,b) => a > b)
+  }
 }

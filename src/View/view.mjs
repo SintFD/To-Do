@@ -40,18 +40,19 @@ export default class View {
   }
 
   createLable(props) {
-    const lable = document.createElement("lable");
+    const label = document.createElement("label");
 
-    props.text && (lable.innerText = props.text);
-    props.id && (lable.id = props.id);
+    props.text && (label.innerText = props.text);
+    props.id && (label.id = props.id);
 
-    return lable;
+    return label;
   }
 
   createInput(props) {
     const input = document.createElement("input");
 
-    props.text && (input.innerText = props.text);
+    props.text && (input.value = props.text);
+    props.name && (input.name = props.name);
     props.id && (input.id = props.id);
 
     return input;
@@ -68,7 +69,7 @@ export default class View {
   createLi(props) {
     const li = document.createElement("li");
 
-    props.text && (li.innerText = props.text);
+    props.text && (li.innerHTML = props.text);
     props.class && (li.className = props.class);
 
     return li;
@@ -91,7 +92,7 @@ export default class View {
       id: "buttonAdd",
     });
 
-    this.lable = this.createLable({
+    this.label = this.createLable({
       text: "To-do list",
       id: "todo-text",
     });
@@ -102,6 +103,7 @@ export default class View {
 
     this.input = this.createInput({
       id: "add-task",
+      name: "task-input",
     });
 
     this.ul = this.createUl({
@@ -109,27 +111,28 @@ export default class View {
     });
 
     this.img = this.createImg({
-        class: 'sort-img',
-        src: './assets/photo/Group 73.png'
-    })
+      class: "sort-img",
+      src: "./assets/photo/Group 73.png",
+    });
 
     this.sortButton = this.createButton({
-        id: 'sort-button',
-        type: 'button'
-    })
+      id: "sort-button",
+      type: "button",
+    });
 
     this.form.append(this.top);
-    this.form.append(this.lable);
+    this.form.append(this.label);
     this.form.append(this.ul);
     this.form.append(this.buttonAdd);
 
-    this.sortButton.append(this.img)
+    this.sortButton.append(this.img);
 
-    this.lable.append(this.sortButton);
-    this.lable.append(this.input);
+    this.label.append(this.sortButton);
+    this.label.append(this.input);
 
     this.buttonAdd.append(this.plas);
     this.buttonAdd.append(this.buttonText);
     this.root.append(this.form);
   }
 }
+
