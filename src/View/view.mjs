@@ -110,13 +110,25 @@ export default class View {
       id: "allList",
     });
 
-    this.img = this.createImg({
+    this.imgSort = this.createImg({
       class: "sort-img",
       src: "./assets/photo/Group 73.png",
     });
 
+    this.imgSortReverse = this.createImg({
+      class: "sort-img",
+      src: "./assets/photo/Group 91.png",
+    });
+
     this.sortButton = this.createButton({
-      id: "sort-button",
+      
+      class: 'button-sort',
+      type: "button",
+    });
+
+    this.sortButtonReverse = this.createButton({
+      
+      class: 'button-sort button-none',
       type: "button",
     });
 
@@ -125,9 +137,11 @@ export default class View {
     this.form.append(this.ul);
     this.form.append(this.buttonAdd);
 
-    this.sortButton.append(this.img);
+    this.sortButton.append(this.imgSort);
+    this.sortButtonReverse.append(this.imgSortReverse)
 
     this.label.append(this.sortButton);
+    this.label.append(this.sortButtonReverse);
     this.label.append(this.input);
 
     this.buttonAdd.append(this.plas);
@@ -135,4 +149,3 @@ export default class View {
     this.root.append(this.form);
   }
 }
-

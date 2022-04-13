@@ -4,8 +4,28 @@ export default class Controller {
     this.view = view;
   }
 
+  buttonSortTasks() {
+    if (this.view.sortButton !== "button-none") {
+      this.view.sortButton.addEventListener("click", (e) => {
+        this.model.sortTasks();
+        this.render();
+        this.view.sortButton.classList.add("button-none");
+        this.view.sortButtonReverse.classList.remove("button-none");
+      });
+    }
+    if (this.view.sortButtonReverse !== "button-none") {
+      this.view.sortButtonReverse.addEventListener("click", (e) => {
+        this.model.sortTasksReverse();
+        this.render();
+        this.view.sortButtonReverse.classList.add("button-none");
+        this.view.sortButton.classList.remove("button-none");
+      });
+    }
+  }
+
   render() {
     this.view.ul.innerHTML = "";
+
     this.model.arr.forEach((el, index) => {
       this.newLi = this.view.createLi({
         class: "addNewTask",
@@ -16,8 +36,6 @@ export default class Controller {
         name: "inputTask",
         id: "input-task",
       });
-      this.view.ul.append(this.newLi);
-      this.newLi.append(this.newInput);
 
       this.deletButton = this.view.createButton({
         text: "x",
@@ -25,16 +43,18 @@ export default class Controller {
         type: "button",
       });
 
-      this.newLi.append(this.deletButton);
-
-      this.deletButton.addEventListener('click',()=>{
-        this.model.deletTask(index)
-        this.render()
-        if(this.view.ul.innerHTML === ''){
-          this.view.ul.className = ''
-        }
-      })
       
+
+      this.deletButton.addEventListener("click", () => {
+        this.model.deletTask(index);
+        this.render();
+        if (this.view.ul.innerHTML === "") {
+          this.view.ul.className = "";
+        }
+      });
+      this.view.ul.append(this.newLi);
+      this.newLi.append(this.newInput);
+      this.newLi.append(this.deletButton);
     });
   }
 
@@ -47,11 +67,13 @@ export default class Controller {
       if (newTask !== "") {
         this.view.ul.className = "allList";
         this.model.addInput(newTask);
-
         this.render();
-
         this.view.input.value = "";
       }
     });
+    this.buttonSortTasks();
+    
   }
+  
 }
+
