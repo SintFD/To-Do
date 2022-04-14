@@ -72,11 +72,19 @@ body {
 }
 
 #buttonAdd {
-  display: flex;
-  justify-content: space-between;
-  background-color: #833ae0;
+  background-image: url('./assets/photo/Group 41.jpg');
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-color: white;
   border: 0px;
-  border-radius: 20px;
+  height: 42px;
+  margin: 10px;
+  width: 150px;
+}
+
+#buttonAdd:hover{
+  background-image: url('./assets/photo/Group 85.jpg');
+  cursor: pointer;;
 }
 
 #plas {
@@ -90,14 +98,10 @@ body {
 
 #todo-text {
   display: flex;
+  position: relative;
   flex-direction: column;
   margin: 10px;
   align-items: center;
-}
-
-#buttonAdd {
-  margin: 10px;
-  width: 100px;
 }
 
 #todo-list {
@@ -127,7 +131,6 @@ body {
   overflow-y: scroll;
 }
 
-/*Убрать полосу прокрутки у элемента*/
 .allList::-webkit-scrollbar {
   width: 0;
 }
@@ -149,17 +152,18 @@ body {
 }
 
 .deletTask {
-  border: 1px solid gray;
-  border-radius: 200px;
-  padding: 0 8px;
-  height: 25px;
-  margin-top: 3px;
+  border: 0px;
+  height: 20px;
+  width: 20px;
+  margin-top: 5px;
   background-color: white;
-  font-size: 15px;
+  background-image: url("./assets/photo/Group 77.png");
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .deletTask:hover {
-  background-color: #833ae0;
+  background-image: url('./assets/photo/Group 70.png');
 }
 
 #todo-text {
@@ -172,15 +176,20 @@ body {
   border: 0;
   background-color: white;
   margin: 5px;
+  background-image: url("./assets/photo/Group 73.png");
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 25px;
   opacity: 0.3;
+  cursor: pointer;
+}
+
+.sort-reverse {
+  background-image: url("./assets/photo/Group 91.png");
 }
 
 .button-sort:hover {
   opacity: 1;
-}
-
-.button-none {
-  display: none;
 }
 
 .input-task {
@@ -190,4 +199,21 @@ body {
 
 .input-task {
   outline: none;
+}
+
+#clearInputValue{
+  position: absolute;
+  right: 11px;
+  top: 86px;
+  background-image: url('./assets/photo/Group 77.png');
+  background-repeat: no-repeat;
+  border: 0;
+  background-color: white;
+  height: 20px;
+  width: 20px;
+}
+
+#clearInputValue:hover{
+  background-image: url('./assets/photo/Group 70.png');
+  cursor: pointer;
 }

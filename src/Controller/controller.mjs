@@ -5,22 +5,15 @@ export default class Controller {
   }
 
   buttonSortTasks() {
-    if (this.view.sortButton !== "button-none") {
-      this.view.sortButton.addEventListener("click", (e) => {
-        this.model.sortTasks();
-        this.render();
-        this.view.sortButton.classList.add("button-none");
-        this.view.sortButtonReverse.classList.remove("button-none");
-      });
-    }
-    if (this.view.sortButtonReverse !== "button-none") {
-      this.view.sortButtonReverse.addEventListener("click", (e) => {
+    this.view.sortButton.addEventListener("click", (e) => {
+      if (e.target.className === "button-sort sort-reverse") {
         this.model.sortTasksReverse();
-        this.render();
-        this.view.sortButtonReverse.classList.add("button-none");
-        this.view.sortButton.classList.remove("button-none");
-      });
-    }
+      } else {
+        this.model.sortTasks();
+      }
+      this.render();
+      e.target.classList.toggle("sort-reverse");
+    });
   }
 
   render() {
@@ -36,12 +29,12 @@ export default class Controller {
         name: "inputTask",
         class: "input-task",
       });
+
       this.newInput.addEventListener("keyup", (event) => {
         this.model.changeTask(index, event.target.value);
       });
 
       this.deletButton = this.view.createButton({
-        text: "x",
         class: "deletTask",
         type: "button",
       });
@@ -59,8 +52,13 @@ export default class Controller {
     });
   }
 
-  init() {
-    this.view.init();
+  clearInput() {
+    this.view.clearInputValue.addEventListener("click", () => {
+      this.view.input.value = "";
+    });
+  }
+
+  initForm() {
     this.view.form.addEventListener("submit", (e) => {
       e.preventDefault();
       const data = new FormData(e.target);
@@ -72,6 +70,12 @@ export default class Controller {
         this.view.input.value = "";
       }
     });
+  }
+
+  init() {
+    this.view.init();
+    this.initForm();
     this.buttonSortTasks();
+    this.clearInput();
   }
 }
