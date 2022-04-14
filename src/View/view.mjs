@@ -10,6 +10,7 @@ export default class View {
     props.id && (button.id = props.id);
     props.class && (button.className = props.class);
     props.type && (button.type = props.type);
+
     return button;
   }
 
@@ -22,15 +23,6 @@ export default class View {
     return div;
   }
 
-  createImg(props) {
-    const img = document.createElement("img");
-
-    props.class && (img.className = props.class);
-    props.src && (img.src = props.src);
-
-    return img;
-  }
-
   createForm(props) {
     const form = document.createElement("form");
 
@@ -41,6 +33,7 @@ export default class View {
 
   createInput(props) {
     const input = document.createElement("input");
+
     props.text && (input.value = props.text);
     props.class && (input.className = props.class);
     props.name && (input.name = props.name);
@@ -71,14 +64,6 @@ export default class View {
       id: "top",
     });
 
-    this.plas = this.createDiv({
-      text: "+",
-      id: "plas",
-    });
-    this.buttonText = this.createDiv({
-      text: "Добавить",
-      id: "add",
-    });
     this.buttonAdd = this.createButton({
       id: "buttonAdd",
     });
@@ -101,28 +86,18 @@ export default class View {
       id: "allList",
     });
 
-    this.imgSort = this.createImg({
-      class: "sort-img",
-      src: "./assets/photo/Group 73.png",
-    });
-
-    this.imgSortReverse = this.createImg({
-      class: "sort-img",
-      src: "./assets/photo/Group 91.png",
-    });
-
     this.sortButton = this.createButton({
       class: "button-sort",
       type: "button",
     });
 
-    this.sortButtonReverse = this.createButton({
-      class: "button-sort button-none",
+    this.clearInputValue = this.createButton({
+      id: "clearInputValue",
       type: "button",
     });
 
     this.inputSortDiv.append(this.sortButton);
-    this.inputSortDiv.append(this.sortButtonReverse);
+    this.inputSortDiv.append(this.clearInputValue);
     this.inputSortDiv.append(this.input);
 
     this.form.append(this.top);
@@ -130,11 +105,6 @@ export default class View {
     this.form.append(this.ul);
     this.form.append(this.buttonAdd);
 
-    this.sortButton.append(this.imgSort);
-    this.sortButtonReverse.append(this.imgSortReverse);
-
-    this.buttonAdd.append(this.plas);
-    this.buttonAdd.append(this.buttonText);
     this.root.append(this.form);
   }
 }
