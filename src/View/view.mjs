@@ -39,15 +39,6 @@ export default class View {
     return form;
   }
 
-  createLable(props) {
-    const label = document.createElement("label");
-
-    props.text && (label.innerText = props.text);
-    props.id && (label.id = props.id);
-
-    return label;
-  }
-
   createInput(props) {
     const input = document.createElement("input");
     props.text && (input.value = props.text);
