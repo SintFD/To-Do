@@ -83,7 +83,7 @@ body {
 }
 
 #buttonAdd:hover{
-  background-image: url('./assets/photo/Group\ 85.jpg');
+  background-image: url('./assets/photo/Group 85.jpg');
   cursor: pointer;;
 }
 
@@ -205,7 +205,7 @@ body {
   position: absolute;
   right: 11px;
   top: 86px;
-  background-image: url('./assets/photo/Group\ 77.png');
+  background-image: url('./assets/photo/Group 77.png');
   background-repeat: no-repeat;
   border: 0;
   background-color: white;
