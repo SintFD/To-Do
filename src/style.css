@@ -124,7 +124,7 @@ body {
   border-radius: 10px;
   width: 286px;
   max-height: 230px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 /*Убрать полосу прокрутки у элемента*/
@@ -172,18 +172,22 @@ body {
   border: 0;
   background-color: white;
   margin: 5px;
-  opacity:0.3
+  opacity: 0.3;
 }
 
-.button-sort:hover{
-  opacity:1
+.button-sort:hover {
+  opacity: 1;
 }
 
-.button-none{
+.button-none {
   display: none;
 }
 
-#input-task {
+.input-task {
   border: 0;
   max-width: 230px;
+}
+
+.input-task {
+  outline: none;
 }

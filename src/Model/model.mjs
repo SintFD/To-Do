@@ -22,4 +22,8 @@ export default class Model {
       a.toLowerCase() < b.toLowerCase() ? 1 : -1
     );
   }
+
+  changeTask(index, newTask) {
+    this.arr[index] = newTask;
+  }
 }

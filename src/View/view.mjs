@@ -50,8 +50,8 @@ export default class View {
 
   createInput(props) {
     const input = document.createElement("input");
-
     props.text && (input.value = props.text);
+    props.class && (input.className = props.class);
     props.name && (input.name = props.name);
     props.id && (input.id = props.id);
 
@@ -92,7 +92,7 @@ export default class View {
       id: "buttonAdd",
     });
 
-    this.label = this.createLable({
+    this.inputSortDiv = this.createDiv({
       text: "To-do list",
       id: "todo-text",
     });
@@ -121,28 +121,26 @@ export default class View {
     });
 
     this.sortButton = this.createButton({
-      
-      class: 'button-sort',
+      class: "button-sort",
       type: "button",
     });
 
     this.sortButtonReverse = this.createButton({
-      
-      class: 'button-sort button-none',
+      class: "button-sort button-none",
       type: "button",
     });
 
+    this.inputSortDiv.append(this.sortButton);
+    this.inputSortDiv.append(this.sortButtonReverse);
+    this.inputSortDiv.append(this.input);
+
     this.form.append(this.top);
-    this.form.append(this.label);
+    this.form.append(this.inputSortDiv);
     this.form.append(this.ul);
     this.form.append(this.buttonAdd);
 
     this.sortButton.append(this.imgSort);
-    this.sortButtonReverse.append(this.imgSortReverse)
-
-    this.label.append(this.sortButton);
-    this.label.append(this.sortButtonReverse);
-    this.label.append(this.input);
+    this.sortButtonReverse.append(this.imgSortReverse);
 
     this.buttonAdd.append(this.plas);
     this.buttonAdd.append(this.buttonText);

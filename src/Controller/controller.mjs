@@ -34,7 +34,10 @@ export default class Controller {
       this.newInput = this.view.createInput({
         text: el,
         name: "inputTask",
-        id: "input-task",
+        class: "input-task",
+      });
+      this.newInput.addEventListener("keyup", (event) => {
+        this.model.changeTask(index, event.target.value);
       });
 
       this.deletButton = this.view.createButton({
@@ -42,8 +45,6 @@ export default class Controller {
         class: "deletTask",
         type: "button",
       });
-
-      
 
       this.deletButton.addEventListener("click", () => {
         this.model.deletTask(index);
@@ -72,8 +73,5 @@ export default class Controller {
       }
     });
     this.buttonSortTasks();
-    
   }
-  
 }
-
