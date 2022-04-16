@@ -5,9 +5,7 @@ export default class Model {
   }
 
   addInput(newTask) {
-    this.arr = [
-      ...this.arr,
-      { id: this.counter, text: newTask, readonly: "true" },
+    this.arr = [...this.arr,{ id: this.counter, text: newTask, readonly: "true" },
     ];
   }
 
@@ -34,4 +32,6 @@ export default class Model {
   changeTask(index, editTask) {
     this.arr[index].text = editTask;
   }
+
+  
 }

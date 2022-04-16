@@ -75,11 +75,54 @@ export default class Controller {
         }
       });
 
+      this.newLi.addEventListener("dragstart", (e) => {
+        e.target.classList.add("dragging");
+      });
+
+      this.newLi.addEventListener("dragend", (e) => {
+        e.target.classList.remove("dragging");
+      });
+
       this.view.ul.append(this.newLi);
       this.newLi.append(this.newInput);
       this.newLi.append(this.editButton);
       this.newLi.append(this.deletButton);
     });
+
+    this.dragoverListener();
+  }
+
+  dragoverListener() {
+    this.view.ul.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      this.afterElement = this.getDragAfterElement(this.view.ul, e.clientY);
+
+      this.draggable = document.querySelector(".dragging");
+      if (this.afterElement == null) {
+        this.view.ul.append(this.draggable);
+      } else {
+        this.view.ul.insertBefore(this.draggable, this.afterElement);
+      }
+    });
+  }
+
+  getDragAfterElement(container, y) {
+    this.draggableElements = [
+      ...container.querySelectorAll(".addNewTask:not(.dragging)"),
+    ];
+
+    return this.draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
   }
 
   clearInput() {
