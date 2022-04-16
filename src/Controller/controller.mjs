@@ -4,12 +4,19 @@ export default class Controller {
     this.view = view;
   }
 
+  init() {
+    this.view.init();
+    this.initForm();
+    this.buttonSortTasks();
+    this.clearInput();
+  }
+
   buttonSortTasks() {
     this.view.sortButton.addEventListener("click", (e) => {
-      if (e.target.className === "button-sort sort-reverse") {
-        this.model.sortTasksReverse();
-      } else {
+      if (e.target.className === "button-sort") {
         this.model.sortTasks();
+      } else {
+        this.model.sortTasksReverse();
       }
       this.render();
       e.target.classList.toggle("sort-reverse");
@@ -22,21 +29,42 @@ export default class Controller {
     this.model.arr.forEach((el, index) => {
       this.newLi = this.view.createLi({
         class: "addNewTask",
+        draggable: "true",
       });
 
       this.newInput = this.view.createInput({
-        text: el,
+        text: el.text,
         name: "inputTask",
         class: "input-task",
       });
 
-      this.newInput.addEventListener("keyup", (event) => {
-        this.model.changeTask(index, event.target.value);
+      this.editButton = this.view.createButton({
+        class: "edit-button",
+        type: "button",
       });
 
       this.deletButton = this.view.createButton({
         class: "deletTask",
         type: "button",
+      });
+
+      if (el.readonly === "true") {
+        this.newInput.setAttribute("readonly", "true");
+      } else {
+        this.editButton.classList.add("finish-edit");
+      }
+
+      this.editButton.addEventListener("click", (e) => {
+        if (el.readonly === "true") {
+          this.model.editTask(index, "false");
+        } else {
+          this.model.editTask(index, "true");
+        }
+        this.render();
+      });
+
+      this.newInput.addEventListener("keyup", (event) => {
+        this.model.changeTask(index, event.target.value);
       });
 
       this.deletButton.addEventListener("click", () => {
@@ -46,8 +74,10 @@ export default class Controller {
           this.view.ul.className = "";
         }
       });
+
       this.view.ul.append(this.newLi);
       this.newLi.append(this.newInput);
+      this.newLi.append(this.editButton);
       this.newLi.append(this.deletButton);
     });
   }
@@ -70,12 +100,5 @@ export default class Controller {
         this.view.input.value = "";
       }
     });
-  }
-
-  init() {
-    this.view.init();
-    this.initForm();
-    this.buttonSortTasks();
-    this.clearInput();
   }
 }

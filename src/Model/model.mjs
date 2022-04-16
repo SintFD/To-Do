@@ -1,29 +1,37 @@
 export default class Model {
   constructor() {
     this.arr = [];
+    this.counter = 0;
   }
 
   addInput(newTask) {
-    this.arr = [...this.arr, newTask];
+    this.arr = [
+      ...this.arr,
+      { id: this.counter, text: newTask, readonly: "true" },
+    ];
   }
 
   deletTask(selectIndex) {
     this.arr = this.arr.filter((el, index) => index !== selectIndex);
   }
 
+  editTask(selectIndex, value) {
+    this.arr[selectIndex].readonly = value;
+  }
+
   sortTasks() {
-    this.arr = this.arr.sort((a, b) =>
-      a.toLowerCase() < b.toLowerCase() ? -1 : 1
+    this.arr.sort((a, b) =>
+      a.text.toLowerCase() < b.text.toLowerCase() ? -1 : 1
     );
   }
 
   sortTasksReverse() {
-    this.arr = this.arr.sort((a, b) =>
-      a.toLowerCase() < b.toLowerCase() ? 1 : -1
+    this.arr.sort((a, b) =>
+      a.text.toLowerCase() < b.text.toLowerCase() ? 1 : -1
     );
   }
 
-  changeTask(index, newTask) {
-    this.arr[index] = newTask;
+  changeTask(index, editTask) {
+    this.arr[index].text = editTask;
   }
 }

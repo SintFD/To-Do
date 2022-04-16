@@ -72,28 +72,20 @@ body {
 }
 
 #buttonAdd {
-  background-image: url('./assets/photo/Group 41.jpg');
+  background-image: url("./assets/photo/Group 41.svg");
   background-size: 150px;
   background-repeat: no-repeat;
   background-color: white;
+  border-radius: 200px;
   border: 0px;
   height: 42px;
   margin: 10px;
   width: 150px;
 }
 
-#buttonAdd:hover{
-  background-image: url('./assets/photo/Group 85.jpg');
-  cursor: pointer;;
-}
-
-#plas {
-  background-color: #9953f1;
-  border-radius: 30px;
-  width: 25px;
-  height: 25px;
-  position: relative;
-  left: -5px;
+#buttonAdd:hover {
+  background-image: url("./assets/photo/Group 85.svg");
+  cursor: pointer;
 }
 
 #todo-text {
@@ -139,7 +131,6 @@ body {
   margin: 5px 10px;
   font-size: 20px;
   display: flex;
-  justify-content: space-between;
   border: 0;
 }
 
@@ -149,6 +140,7 @@ body {
   border: 1px solid gray;
   padding: 5px;
   font-size: 20px;
+  padding-right: 40px;
 }
 
 .deletTask {
@@ -163,7 +155,7 @@ body {
 }
 
 .deletTask:hover {
-  background-image: url('./assets/photo/Group 70.png');
+  background-image: url("./assets/photo/Group 70.png");
 }
 
 #todo-text {
@@ -194,18 +186,20 @@ body {
 
 .input-task {
   border: 0;
-  max-width: 230px;
-}
-
-.input-task {
+  max-width: 214px;
   outline: none;
+  cursor: unset;
 }
 
-#clearInputValue{
+.input-task:hover {
+  cursor: unset;
+}
+
+#clearInputValue {
   position: absolute;
   right: 11px;
   top: 86px;
-  background-image: url('./assets/photo/Group 77.png');
+  background-image: url("./assets/photo/Group 77.png");
   background-repeat: no-repeat;
   border: 0;
   background-color: white;
@@ -213,7 +207,33 @@ body {
   width: 20px;
 }
 
-#clearInputValue:hover{
-  background-image: url('./assets/photo/Group 70.png');
+#clearInputValue:hover {
+  background-image: url("./assets/photo/Group 70.png");
   cursor: pointer;
+}
+
+#button-text {
+  margin-left: 25px;
+  color: white;
+  font-size: 15px;
+}
+
+.edit-button {
+  background-image: url("./assets/photo/icons8-шариковая-ручка-64.png");
+  background-color: white;
+  background-repeat: no-repeat;
+  width: 30px;
+  border: 0;
+  background-size: 20px;
+  margin-top: 4px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.edit-button:hover {
+  opacity: 1;
+}
+
+.finish-edit {
+  background-image: url("./assets/photo/54346.png");
 }
