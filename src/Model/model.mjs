@@ -41,6 +41,6 @@ export default class Model {
   }
 
   draggSort() {
-    this.arr = [...this.arr.sort((a, b) => a.id - b.id)];
+    this.arr.sort((a, b) => a.id - b.id);
   }
 }

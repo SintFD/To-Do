@@ -66,7 +66,7 @@ export default class Controller {
     return this.draggableElements.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 7;
+        const offset = y - box.top - box.height / 5;
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child };
         } else {
