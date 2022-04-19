@@ -24,12 +24,18 @@ export default class Model {
     this.arr.sort((a, b) =>
       a.text.toLowerCase() < b.text.toLowerCase() ? -1 : 1
     );
+    this.arr.forEach((el,index)=>{
+      el.id = index
+    })
   }
 
   sortTasksReverse() {
     this.arr.sort((a, b) =>
       a.text.toLowerCase() < b.text.toLowerCase() ? 1 : -1
     );
+    this.arr.forEach((el,index)=>{
+      el.id = index
+    })
   }
 
   changeTask(index, editTask) {
