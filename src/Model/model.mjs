@@ -5,8 +5,11 @@ export default class Model {
   }
 
   addInput(newTask) {
-    this.arr = [...this.arr,{ id: this.counter, text: newTask, readonly: "true" },
+    this.arr = [
+      ...this.arr,
+      { id: this.counter, text: newTask, readonly: "true" },
     ];
+    this.counter++;
   }
 
   deletTask(selectIndex) {
@@ -33,5 +36,11 @@ export default class Model {
     this.arr[index].text = editTask;
   }
 
-  
+  draggTasks(id, index) {
+    this.arr[id].id = Number(index);
+  }
+
+  draggSort() {
+    this.arr = [...this.arr.sort((a, b) => a.id - b.id)];
+  }
 }

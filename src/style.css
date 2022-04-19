@@ -237,3 +237,8 @@ body {
 .finish-edit {
   background-image: url("./assets/photo/54346.png");
 }
+
+.dragging {
+  opacity: 0.5;
+  font-style: italic;
+}

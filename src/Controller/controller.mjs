@@ -9,6 +9,21 @@ export default class Controller {
     this.initForm();
     this.buttonSortTasks();
     this.clearInput();
+    this.dragoverListener();
+  }
+
+  initForm() {
+    this.view.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const newTask = data.get("task-input");
+      if (newTask !== "") {
+        this.view.ul.className = "allList";
+        this.model.addInput(newTask);
+        this.render();
+        this.view.input.value = "";
+      }
+    });
   }
 
   buttonSortTasks() {
@@ -23,12 +38,52 @@ export default class Controller {
     });
   }
 
+  clearInput() {
+    this.view.clearInputValue.addEventListener("click", () => {
+      this.view.input.value = "";
+    });
+  }
+
+  dragoverListener() {
+    this.view.ul.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      this.afterElement = this.getDragAfterElement(this.view.ul, e.clientY);
+
+      this.draggable = document.querySelector(".dragging");
+      if (this.afterElement == null) {
+        this.view.ul.append(this.draggable);
+      } else {
+        this.view.ul.insertBefore(this.draggable, this.afterElement);
+      }
+    });
+  }
+
+  getDragAfterElement(container, y) {
+    this.draggableElements = [
+      ...container.querySelectorAll(".addNewTask:not(.dragging)"),
+    ];
+
+    return this.draggableElements.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 5;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+  }
+
   render() {
     this.view.ul.innerHTML = "";
 
     this.model.arr.forEach((el, index) => {
       this.newLi = this.view.createLi({
         class: "addNewTask",
+        id: index,
         draggable: "true",
       });
 
@@ -36,6 +91,7 @@ export default class Controller {
         text: el.text,
         name: "inputTask",
         class: "input-task",
+        id: index,
       });
 
       this.editButton = this.view.createButton({
@@ -67,7 +123,7 @@ export default class Controller {
         this.model.changeTask(index, event.target.value);
       });
 
-      this.deletButton.addEventListener("click", () => {
+      this.deletButton.addEventListener("click", (e) => {
         this.model.deletTask(index);
         this.render();
         if (this.view.ul.innerHTML === "") {
@@ -81,6 +137,17 @@ export default class Controller {
 
       this.newLi.addEventListener("dragend", (e) => {
         e.target.classList.remove("dragging");
+
+        this.allDraggableEl = this.view.ul.querySelectorAll(".addNewTask");
+
+        this.allDraggableEl.forEach((el, index) => {
+          if (el.id != index) {
+            this.model.draggTasks(el.id, index);
+          }
+        });
+
+        this.model.draggSort();
+        this.render();
       });
 
       this.view.ul.append(this.newLi);
@@ -88,60 +155,8 @@ export default class Controller {
       this.newLi.append(this.editButton);
       this.newLi.append(this.deletButton);
     });
-
-    this.dragoverListener();
-  }
-
-  dragoverListener() {
-    this.view.ul.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      this.afterElement = this.getDragAfterElement(this.view.ul, e.clientY);
-
-      this.draggable = document.querySelector(".dragging");
-      if (this.afterElement == null) {
-        this.view.ul.append(this.draggable);
-      } else {
-        this.view.ul.insertBefore(this.draggable, this.afterElement);
-      }
-    });
-  }
-
-  getDragAfterElement(container, y) {
-    this.draggableElements = [
-      ...container.querySelectorAll(".addNewTask:not(.dragging)"),
+    this.allDraggableElements = [
+      ...this.view.ul.querySelectorAll(".addNewTask"),
     ];
-
-    return this.draggableElements.reduce(
-      (closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-          return { offset: offset, element: child };
-        } else {
-          return closest;
-        }
-      },
-      { offset: Number.NEGATIVE_INFINITY }
-    ).element;
-  }
-
-  clearInput() {
-    this.view.clearInputValue.addEventListener("click", () => {
-      this.view.input.value = "";
-    });
-  }
-
-  initForm() {
-    this.view.form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const newTask = data.get("task-input");
-      if (newTask !== "") {
-        this.view.ul.className = "allList";
-        this.model.addInput(newTask);
-        this.render();
-        this.view.input.value = "";
-      }
-    });
   }
 }

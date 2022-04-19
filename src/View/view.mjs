@@ -59,6 +59,8 @@ export default class View {
 
     props.text && (li.innerHTML = props.text);
     props.class && (li.className = props.class);
+    props.id && (li.id = props.id);
+    props.id === 0 && (li.id = props.id);
     props.draggable && (li.draggable = props.draggable);
 
     return li;
