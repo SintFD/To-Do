@@ -3,6 +3,10 @@ export default class View {
     this.root = document.getElementById("root");
   }
 
+  init() {
+    this.createElements();
+  }
+
   createButton(props) {
     const button = document.createElement("button");
 
@@ -55,11 +59,14 @@ export default class View {
 
     props.text && (li.innerHTML = props.text);
     props.class && (li.className = props.class);
+    props.id && (li.id = props.id);
+    props.id === 0 && (li.id = props.id);
+    props.draggable && (li.draggable = props.draggable);
 
     return li;
   }
 
-  init() {
+  createElements() {
     this.top = this.createDiv({
       id: "top",
     });
@@ -68,8 +75,17 @@ export default class View {
       id: "buttonAdd",
     });
 
-    this.inputSortDiv = this.createDiv({
+    this.buttonAddText = this.createDiv({
+      id: "button-text",
+      text: "Добавить",
+    });
+
+    this.toDoText = this.createDiv({
+      id: "top-text",
       text: "To-do list",
+    });
+
+    this.inputSortDiv = this.createDiv({
       id: "todo-text",
     });
 
@@ -96,9 +112,12 @@ export default class View {
       type: "button",
     });
 
+    this.inputSortDiv.append(this.toDoText);
     this.inputSortDiv.append(this.sortButton);
     this.inputSortDiv.append(this.clearInputValue);
     this.inputSortDiv.append(this.input);
+
+    this.buttonAdd.append(this.buttonAddText);
 
     this.form.append(this.top);
     this.form.append(this.inputSortDiv);
